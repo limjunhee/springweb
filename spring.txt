@@ -1,0 +1,36 @@
+[HTTP]
+    - 프로토콜: 컴퓨터 내부 또는 사이에서, 데이터의 교환 방식을 정의하는 규칙 체계
+                기기 간 동신은 교환되는 데이터의 형식에 대해 상호 협의를 요구함
+
+    - 기본 요소
+        1) 구문:
+        2) 의미
+        3) 시간
+
+
+    - IP : 네트워크에서 장치를 구분하는 고유 주소
+    - PORT : 프로그램 번호
+
+    HTTP 프로토콜은 상태가 없는 프로토콜이다.
+
+
+[WAS]
+
+    - Servlet(서블렛)
+        *클라이언트의 요청 처리와 결과 반환을 담은 Servlet 클래스*의 구현 규칙을 지킨 자바 웹프로그래밍 기술
+        
+        Apache tomcat에서 제공(spring에 내장됨)
+
+
+    - WAS 동작구조
+    1) Web Server는 웹 브라우저(클라이언트)로부터 HTTP 요청을 받음
+    2) 정적이면 응답 / *동적이면 클라이언트의 요청을 WAS에 보낸다.*
+    3) WAS가 관련된 Servlet을 메모리에 올린다.
+    4) WAS는 web.xml을 참조하여 Web Container(Servlet Container)에서 해당 Servlet에 대한 스레드를 생성한다(스레드풀 이용함) 
+    5) HttpServletRequest와 HttpServletResponse 객체를 생성하여 Servlet에 전달한다.
+        5-1. Thread는 Servlet의 service 메서드 호출
+        5-2. service() 메서드는 요청에 맞게 doGet() 또는 doPost() 등의 HTTP 메서드를 호출
+    6) doGet() / doPost() 메서드는 인자에 맞게 생성된 동적 페이지를 Response 객체에 담아 WAS에 전달함
+    7) WAS는 Response 객체를 HttpResponse 형태로 바꾸어 Web Server에 전달한다.
+    8) 생성된 Thread를 종료하고, HttpServletRequest와 HttpServletResponse 객체를 제거한다( destroy() )
+
