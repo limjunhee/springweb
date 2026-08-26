@@ -22,7 +22,7 @@ dependencies {
 	
 	// 1. springboot
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-	// 2. jdbc
+	// 2. MYSQL jdbc
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'

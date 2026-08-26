@@ -81,4 +81,13 @@
     8) 생성된 Thread를 종료하고, HttpServletRequest와 HttpServletResponse 객체를 제거한다( destroy() )
 
 
-* 
+[어노테이션]
+    @SpringBootApplication : Spring 실행할 때 spring에 필요한 기본 세팅 지원
+                                (1. 내장톰캣지원, 2.서블릿자동등록)
+
+    @RestController : Spring에선 서블릿을 상속이 아니라 @Controller 어노테이션으로 지원 + RestController (HTTP content type 자동으로 application/json으로 세팅)
+
+    @GetMapping( "/board/findAll" ) : 만약, HTTP 요청이 GET이면 해당 메소드로 연결한다. + URL 만들기(중복없이) -> findAll()
+    @PostMapping( "/board/save" ) : 만약, HTTP 요청이 POST이면 해당 메소드로 연결한다. + URL 만들기(중복없이) -> save()
+    @PutMapping( "/board/update" ) : 만약, HTTP 요청이 PUT이면 해당 메소드로 연결한다. + URL 만들기(중복없이) -> update()
+    @DeleteMapping( "/board/delete" ) : 만약, HTTP 요청이 DELETE이면 해당 메소드로 연결한다. + URL 만들기(중복없이) -> delete()
