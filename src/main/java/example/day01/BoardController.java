@@ -65,4 +65,6 @@ public class BoardController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 회원탈퇴
     }
+
+    
 }
