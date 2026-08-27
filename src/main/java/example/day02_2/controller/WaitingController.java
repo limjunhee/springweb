@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mysql.cj.xdevapi.WarningImpl;
 
 import example.day02_2.model.dao.WaitingDao;
 import example.day02_2.model.dto.WaitingDto;
