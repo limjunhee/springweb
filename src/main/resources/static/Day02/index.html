@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Day02 Spring</title>
+    <link rel='stylesheet' href='main.css'>
+</head>
+<body>
+    <!-- 스프링서버 실행 후 : http://127.0.0.1:8080/day02/index.html -->
+    <h3>스프링(톰캣) 서버에서 실행되는 페이지(HTML)</h3>
+
+    <div> <!-- 레이아웃(구역) 마크업-->
+        내용 : <input type="text" class="content"><br>
+        작성자 : <input type="text" class="writer"><br>
+        <button onclick="boardSave()">등록</button>
+        <div>
+            <table border="1" > <!-- 테이블 -->
+                <thead> <!-- 제목구역 -->
+                    <tr>
+                        <th> 번호 </th> <th> 작성자 </th> <th> 내용 </th> <th> 비고 </th>
+                    </tr>
+                </thead>
+                <tbody> <!-- 본문구역 -->
+                    <tr>
+                        <td>1</td> <td>유재석</td> <td>안녕하세요</td>
+                        <td><button>수정</button><button>삭제</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
+
+<!-- 
+    스프링 프로젝트 내
+    src -> main -> java -> 자바파일controller = 서블릿은 동적 서버/웹 컨테이너이다.
+        src->main->java->example->day02->BoardController->@GetMapping("/board/findAll")
+        통신경로: http://127.0.0.1:8080/board/findAll
+
+    src -> main -> resources -> static(html/css/js 등) -> 정적 서버/웹서버이다.
+        src->main-> resources -> static -> day02 -> index.html파일 생성
+        통신경로: http://127.0.0.1:8080/day02/index.html
+
+        http://127.0.0.1:8080 -> 동적이든 정적이든 WAS에 거의 도달하므로 이 부분 주소는 동일
+
+    HTTP : html 프로토콜/규약/규칙, (get,post,put,delete)http://ip:port//경로
+        예)전화번호 규칙: 010-0000-0000
+    HTTP 통신 방법/도구: 1) 브라우저, 2) TalendAPI 3) JS( AXIOS )
+        예) 휴대폰, 집 전화기
+
+-->
