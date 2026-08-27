@@ -92,3 +92,15 @@
     @PostMapping( "/board/save" ) : 만약, HTTP 요청이 POST이면 해당 메소드로 연결한다. + URL 만들기(중복없이) -> save()
     @PutMapping( "/board/update" ) : 만약, HTTP 요청이 PUT이면 해당 메소드로 연결한다. + URL 만들기(중복없이) -> update()
     @DeleteMapping( "/board/delete" ) : 만약, HTTP 요청이 DELETE이면 해당 메소드로 연결한다. + URL 만들기(중복없이) -> delete()
+
+[ axios ]
+    비동기 통신을 기본값으로 제공하는 HTTP 기반 통신 도구
+    
+    1. 설치 : HTML 파일에 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 코드 추가
+    2. 사용법 : axios.HTTP메소드명("URL");
+                주로 통신 이후에 결과를 제어 함으로써 동기화
+                -> 
+                async function 함수명() {
+                    const response = await axios.HTTP메소드명("URL");
+                    const data = response.data; 
+                }
