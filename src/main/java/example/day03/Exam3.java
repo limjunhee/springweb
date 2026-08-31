@@ -1,7 +1,6 @@
 package example.day03;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.Cookie.SameSite;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
@@ -54,24 +53,33 @@ class SampleController3{
 
     }
 }
-
 class SampleController4{
     
     // 2. 스프링 권장 방식
     private final SampleDao3 dao3;
-    
     @Autowired
     public SampleController4(SampleDao3 dao3){
         this.dao3 = dao3;
     }
-
     void method(){
         dao3.method();
     }
 }
-
 @RequiredArgsConstructor // final 멤버변수 생성자를 자동 생성
 class SampleController5{
-    // 3. 롬복 이용한 방식
+    // 3. 롬복 이용한 방식, final 이후 수정 불가능
     private final SampleDao3 dao3;
 }
+
+
+
+/*
+    즉, 다른 클래스의 메소드를 호출하기 위해서는 객체가 필요하다.
+    1. [전통] new 클래스명().메소드명();
+    2. [미니프로젝트2] 클래스명().getInstance().메소드명();
+    3. [스프링] @Conponent 등록, @AutoWired 호출
+    -------------------------
+    @Component 등록하는 시점 : @SpringBootApplication( @ComponentScan )
+    즉, 스프링이 켜지면서 같은 폴더/하위 폴더 내 @Component 다 찾아내서 스프링 컨테이너 등록 구조
+    AppStart 주의할 점: 최상위에 위치한다
+*/
