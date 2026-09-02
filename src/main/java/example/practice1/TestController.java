@@ -68,6 +68,7 @@ public class TestController {
     }
 
     // 게시물 수정
+    // http://127.0.0.1:8080/test/
     @PutMapping("/")
     public boolean testUpdate ( @RequestBody TestDto testDto ){
         System.out.println("TestController.testUpdate()");
