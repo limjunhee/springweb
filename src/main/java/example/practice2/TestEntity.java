@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity // 엔티티 객체(빈) 등록
-@Table(name = "exam") // 매핑할 테이블의 이름
+@Table(name = "test") // 매핑할 테이블의 이름
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
