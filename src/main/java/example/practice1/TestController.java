@@ -81,7 +81,7 @@ public class TestController {
 @NoArgsConstructor
 @Builder
 class TestDto {
-    int no;
+    Integer no;
     String content;
     String writer;
 }
