@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.Data;
 
-//@Component // [미니프로젝트2 싱글톤 대신] 스프릥 컨테이너에 해당 클래스의 객체(빈) 등록
+//@Component // [미니프로젝트2 싱글톤 대신] 스프링 컨테이너에 해당 클래스의 객체(빈) 등록
 @Controller // [ 서블릿 대신 ] HTTP 통신 지원하는 서블릿 제공 + @Component
 public class RestController1 {
     // 1. http://localhost:8080/day03/task1
