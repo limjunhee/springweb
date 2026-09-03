@@ -7,3 +7,5 @@ create table test (
     content VARCHAR(255),
     writer VARCHAR(255)
 )
+
+-- drop Table test;

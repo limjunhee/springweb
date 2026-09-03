@@ -24,6 +24,6 @@ public class BaseTime {
     // 2. 레코드 변경 시점
     // @LastModifiedDate : 엔티티의 데이터가 변경(UPDATE)될 때의 변경 일시를 자동으로 갱신
     @LastModifiedDate
-    private LocalDateTime upDateDate;
+    private LocalDateTime updateDate;
 
 }
