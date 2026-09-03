@@ -33,16 +33,27 @@ public class TestService {
 
     // 3 - 게시물 개별 조회
     public TestEntity testDetail(int no){
-        // Optional로 래핑하지 않는 법 -> findById(no) 뒤에 예외객체 던지는 메서드인 .orElseThrow() 사용
-        // 어째서 가능한가? -> .orElseThrow()는 Optional<T>이고, 변환 타입은 Optional<T>가 아닌 T이기 때문이다. (자동으로 제네릭에 들어간 타입으로 반환)
-        
-        // 리포지토리객체.findById(*번호*).orElseThrow(() -> new IllegalArgumentException( *콘솔에 출력할 문장 또는 변수* ));
-        TestEntity savedEntity = testRepository.findById(no)
-                                .orElseThrow(() -> new IllegalArgumentException("해당 게시물이 없습니다. no=" + no));
+        Optional<TestEntity> optional = testRepository.findById(no);
 
-                                // 없는 번호를 매개변수로 전달했을 경우 콘솔 출력 결과 : java.lang.IllegalArgumentException: 해당 게시물이 없습니다. no=23
-        return savedEntity;
+        if (optional.isPresent()) {
+            TestEntity savedEntity = optional.get();
+            return savedEntity; 
+        }
+        return null;
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------
+        
+        // // Optional로 래핑하지 않는 법 -> findById(no) 뒤에 예외객체 던지는 메서드인 .orElseThrow() 사용
+        // // 어째서 가능한가? -> .orElseThrow()는 Optional<T>이고, 변환 타입은 Optional<T>가 아닌 T이기 때문이다. (자동으로 제네릭에 들어간 타입으로 반환)
+        
+        // // 리포지토리객체.findById(*번호*).orElseThrow(() -> new IllegalArgumentException( *콘솔에 출력할 문장 또는 변수* ));
+        // TestEntity savedEntity = testRepository.findById(no)
+        //                         .orElseThrow(() -> new IllegalArgumentException("해당 게시물이 없습니다. no=" + no));
+
+        //                         // 없는 번호를 매개변수로 전달했을 경우 콘솔 출력 결과 : java.lang.IllegalArgumentException: 해당 게시물이 없습니다. no=23
+        // return savedEntity;
     }
+
     // 4 - 게시물 삭제
     public boolean testDelete(int no){
         // 리포지토리 호출
