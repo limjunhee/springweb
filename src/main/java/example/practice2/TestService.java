@@ -56,10 +56,15 @@ public class TestService {
 
     // 4 - 게시물 삭제
     public boolean testDelete(int no){
-        // 리포지토리 호출
-        testRepository.deleteById(no);
-        
-        return true;
+        // 1. findById 이용한 삭제 엔티티 확인
+        Optional<TestEntity> optional = testRepository.findById(no);
+        // 2. 조회 결과 존재하면
+        if (optional.isPresent()) {
+            // 3. 삭제하기
+            testRepository.delete(optional.get());
+            return true;
+        }
+        return false;
     }
     // 5 - 게시물 수정
     @Transactional // 여러 개의 SQL을 하나의 논리적 단위로 묶는 트랜잭션

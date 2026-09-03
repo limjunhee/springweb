@@ -24,3 +24,9 @@ public class TestEntity {
     private String writer;
     private String content;
 }
+
+/*
+    JPA 영속성: 자바의 데이터가 사라지지 않게 데이터베이스에 저장
+        -> 자바 프로그램(휘발성/영구저장 불가)
+        -> DB ( 비휘발성/영구저장 가능)
+*/

@@ -1,8 +1,8 @@
 package example.practice2;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.RequiredArgsConstructor;
 
-@RestController
-@RequiredArgsConstructor // final 멤버변수에 대한 생성자를 자동 생성
+@RestController // 해당 클래스가 HTTP 컨트롤러 객체(빈) 등록, @Controller( +@Component ) + @ResponseBody
 public class TestController {
 
-    private final TestService testService;
+     // DI : IOC(제어역전) 기반으로 스프링에 객체(빈)가 등록된 객체(빈) 주입
+    @Autowired private TestService testService;
 
     // 1 - 게시물 등록
     // http://127.0.0.1:8080/practice2/test / { "content": "안녕하세요new" , "writer":"임준희" }
