@@ -22,7 +22,7 @@ public class TestEntity extends BaseTime {
     @Column(name = "name", nullable = false, length = 100, unique = true) // 다양한 제약 조건 추가 가능, 이름 설정
     private String name; // 이름
 
-    @Column( columnDefinition = "varchar(100) not null defalut '제품설명'")
+    @Column( columnDefinition = "varchar(100) default '제품설명' not null ")
     private String descri; // 설명
 
     @Column( insertable =  true, updatable = true )
