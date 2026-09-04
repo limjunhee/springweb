@@ -1,6 +1,21 @@
-insert into movie( title , director , releasedate ,rating , create_date , update_date  )
-        values( "영화제목1" , "감독1" , "2026-09-04" , 10 , now() , now() );
-insert into movie( title , director , releasedate ,rating , create_date , update_date  )
-        values( "영화제목2" , "감독2" , "2026-09-03" , 10 , now() , now() );
-insert into movie( title , director , releasedate ,rating , create_date , update_date  )
-        values( "영화제목3" , "감독3" , "2026-09-02" , 10 , now() , now() );
+INSERT INTO users(mid, mpwd, create_date, update_date) VALUES ('admin', '1234', now(), now());
+INSERT INTO users(mid, mpwd, create_date, update_date) VALUES ('kafell', '141543', now(), now());
+INSERT INTO users(mid, mpwd, create_date, update_date) VALUES ('ganatech', 'pw123', now(), now());
+INSERT INTO users(mid, mpwd, create_date, update_date) VALUES ('topline', 'pw432', now(), now());
+
+insert into categories(cno, cname, create_date, update_date) VALUES(1101, '반팔티', now(), now());
+insert into categories(cno, cname, create_date, update_date) VALUES(1201, '긴팔티', now(), now());
+insert into categories(cno, cname, create_date, update_date) VALUES(1102, '나시', now(), now());
+insert into categories(cno, cname, create_date, update_date) VALUES(1301, '셔츠', now(), now());
+insert into categories(cno, cname, create_date, update_date) VALUES(1202, '니트', now(), now());
+
+
+INSERT INTO clothes(mno, cno, clcolor, clname, retype, create_date, update_time) VALUES
+(1, 1101, 'white', '흰색 반팔티', NULL,now(),now()),
+(1, 2303, 'blue', '진청 청바지', NULL,now(),now()),
+(1, 4301, 'white', '흰색 운동화', NULL,now(),now());
+
+INSERT INTO wearlog(clno, wcontext, create_date, update_time) VALUES
+(1, '2026-08-01',now(),now()),
+(1, '2026-08-10',now(),now()),
+(2, '2026-08-14',now(),now());
