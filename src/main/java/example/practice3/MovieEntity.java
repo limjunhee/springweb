@@ -23,10 +23,10 @@ public class MovieEntity extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer movieId; // 영화번호(PK)
 
-    @Column(name = "title", unique = true, nullable = false, length = 100)
+    @Column(name = "title", unique = true, length = 100)
     private String title; // 영화제목
 
-    @Column(name = "director", nullable = false, length = 100)
+    @Column(name = "director", length = 100)
     private String director; // 감독
 
     @Column(name = "releasedate", nullable = false )

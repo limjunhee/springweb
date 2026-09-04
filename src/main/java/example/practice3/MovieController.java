@@ -34,7 +34,8 @@ public class MovieController {
         return movieService.findMovie(movieid);
     }
     // [4] 특정 영화 수정
-    // http://127.0.0.1:8080/api/movie?movieid=1  /  {"title":"영화1수정","director" : "감독1new","rating":5,"releasedate":"2026-09-04"}
+    // http://127.0.0.1:8080/api/movie?movieid=1  /
+    // {"movieId":1,"title":"영화1수정","director":"감독4","rating":5,"releasedate":"2026-09-04"}
     @PutMapping("/api/movie")
     public boolean updateMovie( @RequestBody MovieDto movieDto){
         return movieService.updateMovie(movieDto);
