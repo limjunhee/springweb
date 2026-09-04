@@ -30,7 +30,7 @@ public class MovieEntity extends BaseTime {
     private String director; // 감독
 
     @Column(name = "releasedate", nullable = false )
-    private LocalDate releaseDate; // 개봉일
+    private LocalDate releasedate; // 개봉일
 
     @Column(name = "rating", columnDefinition = "int default 0 not null")
     private Double rating;

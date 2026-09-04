@@ -17,11 +17,13 @@ public class MovieController {
     // private O
     @Autowired private MovieService movieService;
     // [1] 영화 등록
+    // http://127.0.0.1:8080/api/movie  / { "title":"영화4","director":"감독new","releasedate":"2026-09-02","rating":10 }
     @PostMapping("/api/movie")
     public boolean addMovie(@RequestBody MovieDto movieDto){
         return movieService.addMovie(movieDto);
     }
     // [2] 영화 전체 조회
+    // http://127.0.0.1:8080/api/movie  
     @GetMapping("/api/movie")
     public List<MovieDto> findAllMovies(){
         return movieService.findAllMovies();
@@ -32,6 +34,7 @@ public class MovieController {
         return movieService.findMovie(movieid);
     }
     // [4] 특정 영화 수정
+    // http://127.0.0.1:8080/api/movie?movieid=1  /  {"title":"영화1수정","director" : "감독1new","rating":5,"releasedate":"2026-09-04"}
     @PutMapping("/api/movie")
     public boolean updateMovie( @RequestBody MovieDto movieDto){
         return movieService.updateMovie(movieDto);

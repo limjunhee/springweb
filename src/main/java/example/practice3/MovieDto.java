@@ -18,7 +18,7 @@ public class MovieDto {
     private Integer movieId;
     private String title;
     private String director;
-    private LocalDate releaseDate;
+    private LocalDate releasedate;
     private Double rating;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
@@ -33,7 +33,7 @@ public class MovieDto {
         return MovieEntity.builder()
                           .title(this.title)
                           .director(this.director)
-                          .releaseDate(this.releaseDate)
+                          .releasedate(this.releasedate)
                           .rating(this.rating)
                           .build();
     }
@@ -46,7 +46,7 @@ public class MovieDto {
                         .movieId(movieEntity.getMovieId())
                         .title(movieEntity.getTitle())
                         .director(movieEntity.getDirector())
-                        .releaseDate(movieEntity.getReleaseDate())
+                        .releasedate(movieEntity.getReleasedate())
                         .rating(movieEntity.getRating())
                         .createDate(movieEntity.getCreateDate())
                         .updateDate(movieEntity.getUpdateDate())

@@ -70,14 +70,17 @@ public class MovieService {
     @Transactional
     public boolean updateMovie( MovieDto movieDto ){
         // 1. ID 기준으로 수정할 대상 찾기
+        System.out.println("optional 출력하면?");
         Optional<MovieEntity> optional = movieRepository.findById(movieDto.getMovieId());
+        
+        System.out.println(optional);
 
         if (optional.isPresent()) {
             MovieEntity entity = optional.get();
 
             entity.setDirector(movieDto.getDirector());
             entity.setTitle(movieDto.getTitle());
-            entity.setReleaseDate(movieDto.getReleaseDate());
+            entity.setReleasedate(movieDto.getReleasedate());
             entity.setRating(movieDto.getRating());
 
             return true;
