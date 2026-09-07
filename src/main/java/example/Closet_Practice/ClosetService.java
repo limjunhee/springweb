@@ -1,5 +1,7 @@
 package example.Closet_Practice;
 
+import java.util.Optional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,5 +72,16 @@ public class ClosetService {
 
         // DTO 리스트 반환
         return dtoList;
+    }
+
+    public boolean clothesDelete(int clno){
+        Optional<ClothesEntity> optional = closetRepository.findById(clno);
+
+        if (optional.isPresent()) {
+            closetRepository.deleteById(clno);
+            return true;
+        } else{
+            return false;
+        }
     }
 }

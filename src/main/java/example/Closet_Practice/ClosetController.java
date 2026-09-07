@@ -3,6 +3,7 @@ package example.Closet_Practice;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,5 +26,11 @@ public class ClosetController {
     @GetMapping("/closet")
     public ArrayList<ClothesDto> clothesPrintAll(){
         return closetService.clothesPrintAll();
+    }
+
+    // [3] 의류 삭제하기
+    @DeleteMapping("/closet")
+    public boolean clothesDelete(@RequestParam(name = "clno") int clno){
+        return  closetService.clothesDelete(clno);
     }
 }
