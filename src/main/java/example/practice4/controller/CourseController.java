@@ -18,13 +18,13 @@ public class CourseController {
     @Autowired private CourseService courseService;
 
     // [1] 과정 등록
-    @PostMapping("/")
+    @PostMapping("")
     public boolean addCourse(@RequestBody CourseDto courseDto){
         return courseService.addCourse(courseDto);
     }
 
     // [2] 과정 조회
-    @GetMapping("/")
+    @GetMapping("")
     public List<CourseDto> printCourse(){
         return courseService.printCourse();
     }

@@ -1,6 +1,7 @@
 package example.practice4.model.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import example.Closet_Practice.BaseTime;
 import jakarta.persistence.CascadeType;
@@ -33,5 +34,5 @@ public class StudentEntity extends BaseTime{
     @OneToMany(mappedBy = "studentEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude // 순환참조 방지
     @Builder.Default // 빌더 패턴 시 기본값 사용
-    private ArrayList<EnrollEntity> entities = new ArrayList<>();
+    private List<EnrollEntity> entities = new ArrayList<>();
 }

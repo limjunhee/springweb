@@ -34,19 +34,21 @@ public class CourseService {
 
     //[2] 과정 조회
     public List<CourseDto> printCourse(){
-        List<CourseEntity> entityList = courseRepository.findAll();
+        List<CourseEntity> courseEntities = courseRepository.findAll();
 
-        ArrayList<CourseDto> dtoList = new ArrayList<>();
+        ArrayList<CourseDto> courseDtos = new ArrayList<>();
 
-        for (CourseEntity entity : entityList){
-            CourseDto dto = CourseDto.from(entity);
+        courseEntities.forEach((courseEntity) -> { // 2-1: 하나씩 과정엔티티 꺼내서
+            CourseDto courseDto = CourseDto.from(courseEntity); // 2-2: 과정엔티티 -> 과정dto 변환
+            // *** 과정DTO에 학생목록 추가!!! ***
+            // * 현재 과정(course) ---> 수강기록(enroll)들을 반복하여 --> 수강기록 --> 학생(student)
+            courseEntity.getEntities().forEach((enroll) -> {
+                StudentDto studentDto = StudentDto.from(enroll.getStudentEntity());
+                courseDto.getStudentdto().add(studentDto);
+            });
+            courseDtos.add(courseDto); // 2-3 변환된 dto 리스트에 저장
+        });
 
-            // 과정 나올 때 학생 목록도 같이 나오게 한다.
-            // 현재 과정 내 학생 엔티티를 찾는다
-            // * 현재 과정(course) ---> 수강기록(enroll)들을 반복하여 탐색
-
-        }
-
-        return dtoList;
+        return courseDtos;
     }
 }
