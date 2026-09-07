@@ -1,7 +1,9 @@
-package example.practice4;
+package example.Closet_Practice;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,7 +29,7 @@ public class WearLogEntity extends BaseTime {
     private String wcontext;
 
     // 의류테이블 참조 의류번호
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinColumn(name = "clno")
     private ClothesEntity clothesEntity;
 

@@ -1,10 +1,12 @@
-package example.practice4;
+package example.Closet_Practice;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,12 +32,12 @@ public class ClothesEntity extends BaseTime {
     private Integer clno;
 
     // 참조 FK 회원 테이블 회원번호
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinColumn(name = "mno") // 회원테이블( 회원 번호 )
     private UserEntity userEntity; // 회원 테이블 엔티티
 
     // 참조 카테고리테이블-카테고리번호
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "cno") // 카테고리테이블(카테고리 번호)
     private CategoryEntity categoryEntity;
 
@@ -50,6 +52,5 @@ public class ClothesEntity extends BaseTime {
     @Column(name = "clname", nullable = true, length = 100, unique = false)
     private String clname;
     @Column(name = "retype", nullable = true, length = 30, unique = false)
-    private String re_type;
-
+    private String retype;
 }

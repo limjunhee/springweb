@@ -10,12 +10,11 @@ insert into categories(cno, cname, create_date, update_date) VALUES(1301, '셔�
 insert into categories(cno, cname, create_date, update_date) VALUES(1202, '니트', now(), now());
 
 
-INSERT INTO clothes(mno, cno, clcolor, clname, retype, create_date, update_time) VALUES
-(1, 1101, 'white', '흰색 반팔티', NULL,now(),now()),
-(1, 2303, 'blue', '진청 청바지', NULL,now(),now()),
-(1, 4301, 'white', '흰색 운동화', NULL,now(),now());
+INSERT INTO clothes(mno, cno, clcolor, clname, retype, create_date, update_date) VALUES( 1, 1101, 'white', '흰색 반팔티', NULL,now(),now());
+INSERT INTO clothes(mno, cno, clcolor, clname, retype, create_date, update_date) VALUES( 1, 1201, 'blue', '진청 긴팔티', NULL, now(), now() );
+INSERT INTO clothes(mno, cno, clcolor, clname, retype, create_date, update_date) VALUES( 1, 1102, 'white', '흰색 나시', NULL, now(), now() );
 
-INSERT INTO wearlog(clno, wcontext, create_date, update_time) VALUES
+INSERT INTO wearlog(clno, wcontext, create_date, update_date) VALUES
 (1, '2026-08-01',now(),now()),
 (1, '2026-08-10',now(),now()),
 (2, '2026-08-14',now(),now());
