@@ -1,49 +1,44 @@
-package example.practice5.model.dto;
+package example.practice5_test.model.dto;
 
 import java.time.LocalDateTime;
 
-import example.practice5.model.entity.CommentEntity;
+import example.practice5_test.model.entity.CommentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter @Setter @ToString @Builder 
+@Data @Builder 
 @NoArgsConstructor @AllArgsConstructor 
 public class CommentDto {
-    private Integer id;
+    private Integer commentId;
     private String author;
     private String password;
     private String content;
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
 
-    // BaseTime
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
-    // FK: 게시물번호 불러오기
+    // 이 댓글이 달린 게시물 ID
     private Integer boardId;
 
-    // dto -> entity
     public CommentEntity toEntity(){
         return CommentEntity.builder()
-                            .id(this.id)
+                            .commentId(this.commentId)
                             .author(this.author)
                             .password(this.password)
                             .content(this.content)
                             .build();
     }
 
-    public static CommentDto from(CommentEntity commentEntity){
+    public static CommentDto from(example.practice5_test.model.entity.CommentEntity commentEntity){
         return CommentDto.builder()
-                        .id(commentEntity.getId())
+                        .commentId(commentEntity.getCommentId())
                         .author(commentEntity.getAuthor())
                         .password(commentEntity.getPassword())
                         .content(commentEntity.getContent())
-                        .createdAt(commentEntity.getCreatedAt())
-                        .updatedAt(commentEntity.getUpdatedAt())
-                        .boardId(commentEntity.getBoardEntity().getId())
+                        .createAt(commentEntity.getCreatedAt())
+                        .updateAt(commentEntity.getUpdatedAt())
                         .build();
     }
+
 }

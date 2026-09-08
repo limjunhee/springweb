@@ -1,6 +1,5 @@
-package example.practice5.model.entity;
+package example.practice5_test.model.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,35 +10,29 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity 
-@Table(name = "comment")
-@NoArgsConstructor 
-@AllArgsConstructor 
-@Getter 
-@Setter 
-@ToString 
-@Builder 
+@Table (name = "comment")
+@Data @Builder @ToString 
+@NoArgsConstructor @AllArgsConstructor 
 public class CommentEntity extends BaseTime{
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Id 
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Integer commentId;
 
     @Column 
     private String author;
 
     @Column 
     private String password;
-
+    
     @Column 
     private String content;
 
-    // (단방향) FK = 게시물 번호
-    @JoinColumn (name = "board_id")
     @ManyToOne
+    @JoinColumn (name = "board_id")
     private BoardEntity boardEntity;
 }
