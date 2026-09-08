@@ -41,5 +41,5 @@ public class EnrollEntity extends BaseTime{
     // FK: 학생 번호
     @JoinColumn (name = "student_id")
     @ManyToOne 
-    private  StudentEntity studentEntity;
+    private StudentEntity studentEntity;
 }
