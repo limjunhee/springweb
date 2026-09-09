@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data @Builder 
 @NoArgsConstructor @AllArgsConstructor 
 public class CommentDto {
-    private Integer commentId;
+    private Integer id; //
     private String author;
     private String password;
     private String content;
@@ -23,16 +23,16 @@ public class CommentDto {
 
     public CommentEntity toEntity(){
         return CommentEntity.builder()
-                            .commentId(this.commentId)
+                            .id(this.id)
                             .author(this.author)
                             .password(this.password)
                             .content(this.content)
                             .build();
     }
 
-    public static CommentDto from(example.practice5_test.model.entity.CommentEntity commentEntity){
+    public static CommentDto from(CommentEntity commentEntity){
         return CommentDto.builder()
-                        .commentId(commentEntity.getCommentId())
+                        .id(commentEntity.getId())
                         .author(commentEntity.getAuthor())
                         .password(commentEntity.getPassword())
                         .content(commentEntity.getContent())

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import example.practice5.model.dto.BoardDto;
 import example.practice5.model.dto.CommentDto;
 import example.practice5.model.entity.BoardEntity;
-import example.practice5.model.entity.CommentEntity;
 import example.practice5.model.repository.BoardRepository;
 import example.practice5.model.repository.CommentRepository;
 

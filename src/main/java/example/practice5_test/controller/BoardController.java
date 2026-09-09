@@ -32,7 +32,7 @@ public class BoardController {
     }
     // 게시물 삭제
     @DeleteMapping("")
-    public boolean boardDelete(@RequestParam (name = "id")Integer commentId, @RequestParam(name="password")String password){
-        return boardService.boardDelete(commentId,password);
+    public boolean boardDelete(@RequestParam (name = "id")Integer boardId, @RequestParam(name="password")String password){
+        return boardService.boardDelete(boardId,password);
     }
 }

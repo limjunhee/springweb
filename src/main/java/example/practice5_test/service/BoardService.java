@@ -60,14 +60,14 @@ public class BoardService {
 
 
     // 게시물 삭제
-    public boolean boardDelete(Integer commentId, String password){
+    public boolean boardDelete(Integer boardId, String password){
         // commentId 파라미터 통해서 게시글 엔티티 하나 가져옴
-        BoardEntity entity = boardRepository.findById(commentId).orElse(null);
+        BoardEntity entity = boardRepository.findById(boardId).orElse(null);
         
         // 가져온 엔티티의 id가 1 이상이며, 입력한 비밀번호가 엔티티의 비번과 일치하다면?? -> 삭제
         if (entity.getId() >= 1) {
             if (entity.getPassword().equals(password)) {
-                boardRepository.deleteById(commentId);    
+                boardRepository.deleteById(boardId);    
                 return true;
             }
         }

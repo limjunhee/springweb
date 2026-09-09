@@ -21,7 +21,7 @@ import lombok.ToString;
 public class CommentEntity extends BaseTime{
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer commentId;
+    private Integer id;
 
     @Column 
     private String author;

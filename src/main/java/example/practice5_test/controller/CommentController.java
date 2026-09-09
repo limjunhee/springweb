@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import example.practice5_test.model.dto.CommentDto;
 import example.practice5_test.service.CommentService;
 
+@RestController 
 @RequestMapping ("/api/board/comments")
 public class CommentController {
     @Autowired private CommentService commentService;
@@ -21,7 +23,7 @@ public class CommentController {
     }
     // 댓글 삭제
     @DeleteMapping("")
-    public boolean deleteComments(@RequestParam(name = "id") Integer commentId, @RequestParam (name="password") String password){
+    public boolean deleteComments(@RequestParam(name = "commentId") Integer commentId, @RequestParam (name="password") String password){
         return commentService.deleteComments(commentId, password);
     }
 }
