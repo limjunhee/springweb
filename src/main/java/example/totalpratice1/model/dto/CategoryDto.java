@@ -18,8 +18,8 @@ public class CategoryDto {
     private Integer cno;
     private String name;
     
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
+    // private LocalDateTime createAt;
+    // private LocalDateTime updateAt;
 
     // 제품 목록
     @Builder.Default
@@ -36,8 +36,8 @@ public class CategoryDto {
         return CategoryDto.builder()
                             .cno(categoryEntity.getCno())
                             .name(categoryEntity.getName())
-                            .createAt(categoryEntity.getCreateAt())
-                            .updateAt(categoryEntity.getUpdateAt())
+                            // .createAt(categoryEntity.getCreateAt())
+                            // .updateAt(categoryEntity.getUpdateAt())
                             .build();
     }
 }
