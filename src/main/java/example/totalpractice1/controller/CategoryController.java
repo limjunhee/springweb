@@ -1,4 +1,4 @@
-package example.totalpratice1.controller;
+package example.totalpractice1.controller;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import example.totalpratice1.model.dto.CategoryDto;
-import example.totalpratice1.service.CategoryService;
+import example.totalpractice1.model.dto.CategoryDto;
+import example.totalpractice1.service.CategoryService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;

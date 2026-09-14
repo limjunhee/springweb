@@ -1,4 +1,4 @@
-package example.totalpratice1.service;
+package example.totalpractice1.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,15 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import example.totalpratice1.model.dto.CategoryDto;
-import example.totalpratice1.model.entity.CategoryEntity;
-import example.totalpratice1.model.entity.ProductEntity;
-import example.totalpratice1.model.repository.CategoryRepository;
+import example.totalpractice1.model.dto.CategoryDto;
+import example.totalpractice1.model.entity.CategoryEntity;
+import example.totalpractice1.model.repository.CategoryRepository;
 
 @Service
 public class CategoryService {
     @Autowired private CategoryRepository categoryRepository;
-    @Autowired private ProductEntity productEntity;
+    // @Autowired private ProductRepository productRepository;
 
     public CategoryDto addCategory( CategoryDto categoryDto ){
         // dto -> entity

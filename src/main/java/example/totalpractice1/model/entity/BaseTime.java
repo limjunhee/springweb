@@ -1,4 +1,4 @@
-package example.totalpratice1.model.entity;
+package example.totalpractice1.model.entity;
 
 import java.time.LocalDateTime;
 

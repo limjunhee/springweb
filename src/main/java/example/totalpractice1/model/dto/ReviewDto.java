@@ -1,6 +1,6 @@
-package example.totalpratice1.model.dto;
+package example.totalpractice1.model.dto;
 
-import example.totalpratice1.model.entity.ReviewEntity;
+import example.totalpractice1.model.entity.ReviewEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

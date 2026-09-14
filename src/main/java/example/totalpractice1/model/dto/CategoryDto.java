@@ -1,11 +1,11 @@
-package example.totalpratice1.model.dto;
+package example.totalpractice1.model.dto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import example.totalpratice1.model.entity.CategoryEntity;
-import example.totalpratice1.model.entity.ProductEntity;
+import example.totalpractice1.model.entity.CategoryEntity;
+import example.totalpractice1.model.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
