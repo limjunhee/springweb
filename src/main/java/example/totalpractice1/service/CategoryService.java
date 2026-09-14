@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import example.totalpractice1.model.dto.CategoryDto;
 import example.totalpractice1.model.entity.CategoryEntity;
 import example.totalpractice1.model.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 
 @Service
+@Transactional 
 public class CategoryService {
     @Autowired private CategoryRepository categoryRepository;
     // @Autowired private ProductRepository productRepository;

@@ -29,6 +29,7 @@ public class ProductDto {
                 .bno(productEntity.getBno())
                 .name(productEntity.getName())
                 .price(productEntity.getPrice())
-                .cno(productEntity.getCategoryEntity().getCno()).build();
+                .cno(productEntity.getCategoryEntity().getCno())
+                .build();
     }
 }
