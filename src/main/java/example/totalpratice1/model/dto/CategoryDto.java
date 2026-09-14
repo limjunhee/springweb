@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor 
 @ToString @Builder 
 public class CategoryDto {
-    private Integer no;
+    private Integer cno;
     private String name;
     
     private LocalDateTime createAt;
@@ -31,7 +31,7 @@ public class CategoryDto {
 
     public static CategoryDto from( CategoryEntity categoryEntity){
         return CategoryDto.builder()
-                            
+
                             .build();
     }
 }

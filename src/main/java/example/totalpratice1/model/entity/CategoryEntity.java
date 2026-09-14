@@ -24,13 +24,13 @@ import lombok.ToString;
 public class CategoryEntity {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer no;
+    private Integer cno;
 
     private String name;
 
     // 양방향 참조 - 이 카테고리의 제품목록
-    // @OneToMany (mappedBy = "productEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // @Builder.Default
-    // @ToString.Exclude
-    // private List<ProductEntity> productEntities = new ArrayList<>();
+    @OneToMany (mappedBy = "categoryEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    @ToString.Exclude
+    private List<ProductEntity> productEntities = new ArrayList<>();
 }
