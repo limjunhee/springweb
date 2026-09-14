@@ -3,9 +3,9 @@ package example.totalpratice1.model.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import example.totalpratice1.model.dto.CategoryDto;
+import example.totalpratice1.model.entity.CategoryEntity;
 
 @Repository 
-public interface CategoryRepository extends JpaRepository<CategoryDto, Integer> {
+public interface CategoryRepository extends JpaRepository<CategoryEntity, Integer> {
     
 }
