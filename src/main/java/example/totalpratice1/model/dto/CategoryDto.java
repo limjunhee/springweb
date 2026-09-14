@@ -25,14 +25,14 @@ public class CategoryDto {
     @Builder.Default
     private List<ProductEntity> products = new ArrayList<>();
 
-    public CategoryEntity toEntity(){
+    public CategoryEntity dtoToEntity(){
         return CategoryEntity.builder()
                             .cno(this.cno)
                             .name(this.name)
                             .build();
     }
 
-    public static CategoryDto from( CategoryEntity categoryEntity){
+    public static CategoryDto entityToDto(CategoryEntity categoryEntity){
         return CategoryDto.builder()
                             .cno(categoryEntity.getCno())
                             .name(categoryEntity.getName())
