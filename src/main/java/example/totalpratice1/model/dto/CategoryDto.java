@@ -1,9 +1,11 @@
 package example.totalpratice1.model.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import example.totalpratice1.model.entity.CategoryEntity;
+import example.totalpratice1.model.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,19 +21,23 @@ public class CategoryDto {
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
-    // // 제품 목록
-    // @Builder.Default
-    // private List<ProductEntity> products;
+    // 제품 목록
+    @Builder.Default
+    private List<ProductEntity> products = new ArrayList<>();
 
     public CategoryEntity toEntity(){
         return CategoryEntity.builder()
-
+                            .cno(this.cno)
+                            .name(this.name)
                             .build();
     }
 
     public static CategoryDto from( CategoryEntity categoryEntity){
         return CategoryDto.builder()
-
+                            .cno(categoryEntity.getCno())
+                            .name(categoryEntity.getName())
+                            .createAt(categoryEntity.getCreateAt())
+                            .updateAt(categoryEntity.getUpdateAt())
                             .build();
     }
 }

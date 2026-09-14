@@ -21,7 +21,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class ReviewEntity {
+public class ReviewEntity extends BaseTime{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer rno;
