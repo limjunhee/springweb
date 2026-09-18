@@ -1,5 +1,5 @@
 // 외부 API 연결 실습
-package example.day08;
+package example.React_Practice5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
