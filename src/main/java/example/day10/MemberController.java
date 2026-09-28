@@ -60,6 +60,18 @@ public class MemberController {
         return memberSerivce.getMyInfo(memberDto.getMno());
     }
 
+    // [4] 로그아웃 + 세션을 초기화
+    @PostMapping("/logout")
+    public boolean logOut(HttpSession session) {
+        // 사용자에게 추가로 입력받을 값은 없음 -> 매개변수에 세션 객체만
+        // 1. 세션 초기화
+        session.invalidate(); // 세션 내 모든 정보 초기화 (선택 1)
+        // session.removeAttribute("login_member"); // 세션 내 특정 정보만 삭제 (선택 2)
+
+        return true;
+    }
+    
+
 
     // * 세션 관련 실습
     @GetMapping("")

@@ -48,7 +48,7 @@ public class MemberSerivce {
         // passwordEncoder.matches.("평문", "암호문")
         boolean 비밀번호일치 = passwordEncoder.matches(memberDto.getMpwd(), memberEntity.getMpwd());
         if (비밀번호일치 == false) { return null; }
-
+        System.out.println(memberDto.getMid() + "님 로그인함");
         // 4. entity -> dto 변환, 로그인 전용 DTO가 있으면 더 좋음!
         return MemberDto.from(memberEntity);
     }
