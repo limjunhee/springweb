@@ -36,9 +36,8 @@ public class MemberController {
         return memberService.signUp(memberDto);
     }
     
-    
-    // [2] 로그인 + 쿠키 (회원 식별(번호) 쿠키에 담아 클라이언트에 전송)
-    // 세션 방식에서 쿠키로 변경
+    private final RedisTokenService redisTokenService;
+    // [2] 로그인
     @PostMapping("/login")
     public MemberDto login(@RequestBody MemberDto memberDto , HttpServletResponse response) {
         
@@ -46,27 +45,28 @@ public class MemberController {
         MemberDto result = memberService.login(memberDto);
         if (result == null) return null; // 로그인 실패
 
-        // 2. 로그인 성공 시 쿠키 생성/발급 *** 쿠키 값을 jwt 안전하게 변경 ***
-        // 쿠키는 세션과 다르게 클라이언트에 저장됨
-        // -> 회원 번호만 저장하자 (비밀번호 등 민감한 정보는 X)
-        // ResponseCookie cookie = ResponseCookie.from("cookieName","cookieValue")
-        // 참고 : 정수를 문자 타입으로 변환하는 방법 1) 정수 + ""
-        //                                        2) String.valueOf(정수), **쿠키값은 String 타입이다.**
+        // 2. 토큰 **2개** 발급 요청
+        String accessToken = jwtUtil.createAccessToken( result.getMno() );
+        String refreshToken = jwtUtil.createRefreshToken( result.getMno() );
 
-        // 4. 토큰 발급 요청
-        String token = jwtUtil.createToken(result.getMno()); // mno --> jwt
+        // 3. refreshToken만 레디스에 저장(대조용으로 사용)
+        redisTokenService.setRefreshToken(result.getMno(), refreshToken);
 
-        ResponseCookie cookie = ResponseCookie.from("login_member", /*result.getMno()+""*/ token)
-                                                .path("/")                      // 쿠키를 사용한 경로, "/"는 도메인 전체를 뜻한다.
-                                                // Duration.ofXXX(수) : 쿠키의 유효 가간을 설정 
-                                                .maxAge( Duration.ofDays(1))    // 유효기간 1일로 설정
-                                                .httpOnly(true)             // JS 이용한 탈취 방지, XSS 공격
-                                                .secure(false)                // HTTP에서만 사용, 개발단계 false, 배포단계 true
-                                                .sameSite("Lax")            // CSRF 공격을 방지함
-                                                .build();
-
-        // 3. 응답 헤더에 쿠키 등록 response.setHeader
-        response.setHeader( HttpHeaders.SET_COOKIE, cookie.toString() );
+        // 4. 로그인 성공 시 쿠키 2개 생성/발급 , 쿠키만료기간 == 토큰만료기간 동일권장
+        ResponseCookie cookie1 = ResponseCookie.from("accessToken", accessToken)
+                                                .path("/").maxAge(Duration.ofMinutes(30) )
+                                                .httpOnly(true).secure(false).sameSite("Lax")
+                                                .build(); // 30분짜리 accessToken 쿠키 완성
+        
+        ResponseCookie cookie2 = ResponseCookie.from("refreshToken", refreshToken)
+                                                .path("/").maxAge(Duration.ofDays(7))
+                                                .httpOnly(true).secure(false).sameSite("Lax")
+                                                .build(); // 7일짜리 refreshToken 쿠키 완성
+        
+        // 5. 응답 헤더에 쿠키 2개 등록 response.setHeader -> cookie1, cookie2
+        response.addHeader( HttpHeaders.SET_COOKIE, cookie1.toString() );
+        response.addHeader( HttpHeaders.SET_COOKIE, cookie2.toString() );
+        
         return result;
     }
 
@@ -74,28 +74,43 @@ public class MemberController {
     @GetMapping("/me")
     public MemberDto getMyInfo(
             // @CookieValue( value="쿠키명") ){ // 요청한 브라우저의 쿠키 가져오기
-            @CookieValue(value = "login_member", required = false) String token) {
+            @CookieValue(value = "accessToken", required = false) String token) {
         // 1. 만약에 token 가 없다면 비로그인
         if (token == null)
             return null;
         // ********* 쿠키에 저장된 token 이용하여 회원번호 찾기 ************
         Long loginMno = jwtUtil.getMnoFromToken(token);
         // 2. 로그인 중이면 서비스에게 회원정보 요청
-        return memberService.getMyInfo(loginMno);
+        return memberService.getMyInfo( loginMno );
     }
 
-    // [4] 로그아웃 + 세션을 초기화
+    // [4] 로그아웃 + 쿠키
     @PostMapping("/logout")
-    public boolean logOut(HttpServletResponse response) {
-        // 1. 삭제할 쿠키명과 동일한 이름으로 maxAge(0) 하여 재발급
-        ResponseCookie cookie = ResponseCookie.from("login_member", "")
+    public boolean logOut( @CookieValue(value = "accessToken", required = false ) String accessToken, HttpServletResponse response) {
+        // 1. 만약 accessToken 있으면 회원 번호를 조회
+        if (accessToken != null) {
+            Long mno = jwtUtil.getMnoFromToken(accessToken);
+            // 2. 만약 회원이 조회된다면? 레디스 안의 refreshToken을 삭제하기.
+            redisTokenService.deleteRefreshToken(mno);
+
+        }
+
+        // 3. 쿠키 2개도 삭제하기
+        ResponseCookie cookie1 = ResponseCookie.from("accessToken", "")
                                             .path("/")          // 모든곳에서 로그아웃 가능하도록, 전체
                                             .maxAge(0) // 바로 삭제
                                             .httpOnly(true)
                                             .secure(false)
                                             .build();
+        ResponseCookie cookie2 = ResponseCookie.from("refreshToken", "")
+                                            .path("/") // 모든곳에서 로그아웃 가능하도록, 전체
+                                            .maxAge(0) // 바로 삭제
+                                            .httpOnly(true)
+                                            .secure(false)
+                                            .build();
 
-        response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie1.toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie2.toString());
         return true;
     }
     
