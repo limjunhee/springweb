@@ -17,8 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -54,7 +56,7 @@ public class RedisController {
     // =============== redis CRUD ====================
     private final ObjectMapper objectMapper = new ObjectMapper(); // 직렬화 객체
 
-    // [1] Redis 저장
+    // [1] Redis 저장 http://localhost:8080/api/redis/member
     @PostMapping ("/member")
     public boolean save(@RequestBody MemberDto memberDto) throws JsonProcessingException {
         // 1. 중복 없는 key 구성( 예] 도메인명: 식별키 )
@@ -70,7 +72,7 @@ public class RedisController {
         return true;
     }
 
-    // [2] redis 전체조회
+    // [2] redis 전체조회 http://localhost:8080/api/redis/member
     @GetMapping ("/member")
     public List<MemberDto> findAll() throws JsonMappingException, JsonProcessingException{
         // 1. 특정 패턴의 key 조회, memeber:* , member로 시작하는 모든 키 조회
@@ -92,7 +94,7 @@ public class RedisController {
     }
     
 
-    // [3] redis 개별조회
+    // [3] redis 개별조회 http://localhost:8080/api/redis/member/find?mno=1
     @GetMapping("/member/find")
     public MemberDto find(@RequestParam(name="mno") Long mno) throws JsonMappingException, JsonProcessingException {
         // 1. 조회할 mno 매개변수로 받는다.
@@ -109,6 +111,35 @@ public class RedisController {
         return memberDto;
     }
     
+    // [4] redis 삭제
+    @DeleteMapping("/member")
+    public boolean delete( @RequestParam(name = "mno") Long mno ){
+        // 1. 삭제할 mno 매개변수로 받는다.
+        // 2. 삭제할 키를 조합한다.
+        String deleteKey = "member:"+mno;
+        boolean result = stringRedisTemplate.delete(deleteKey); // redisTemplate.delete(key)
+        
+        return result;
+    }
+
+    // [5] redis 수정
+    @PutMapping("/member")
+    public boolean update( @RequestBody MemberDto memberDto ){
+        // 1. 수정할 자료들을 dto 받고, 수정할 key 조합하여 수정한다.
+        String updateKey = "member:"+ memberDto.getMno();
+        if (updateKey == null) return false;
+
+        // 2. 동일한 키로 입력받은 dto 직렬화 저장
+        try {
+            String value = objectMapper.writeValueAsString(memberDto); // 직렬화
+            stringRedisTemplate.opsForValue().set(updateKey, value);
+            return true;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
 
 
