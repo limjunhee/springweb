@@ -122,7 +122,9 @@ public class RedisController {
         return result;
     }
 
-    // [5] redis 수정
+    // [5] redis 수정 
+    // http://localhost:8080/api/redis/member
+    // { "mno":"3", "mid":"test", "mpwd":"1234", "mname":"수정테스트", "role":"user" }
     @PutMapping("/member")
     public boolean update( @RequestBody MemberDto memberDto ){
         // 1. 수정할 자료들을 dto 받고, 수정할 key 조합하여 수정한다.
