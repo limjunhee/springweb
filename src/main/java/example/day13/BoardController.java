@@ -4,6 +4,8 @@ package example.day13;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:5173") // React 로컬 포트 허용
@@ -12,6 +14,7 @@ import java.util.List;
 @RequestMapping("/api/board")
 public class BoardController {
 
+    private final FileService fileService;
     private final BoardService boardService;
 
     // 등록
@@ -32,4 +35,16 @@ public class BoardController {
         return boardService.boardFindById(id);
     }
 
+    // [4] 다운로드
+    @GetMapping("/download/{id}")
+    public void download( @PathVariable (name = "id") Long id, HttpServletResponse response){
+        // 1. 다운로드 받을 게시물번호와 HTTP 응답객체 가져옴
+        // 2. 다운로드 받을 게시물 번호의 업로드파일명 조회
+        String fileName = boardService.getFileName(id);
+
+        // 3. 만약 파일명이 존재하면 다운로드 진행
+        if (fileName != null) {
+            fileService.fileDownload(fileName, response);
+        }
+    }
 }

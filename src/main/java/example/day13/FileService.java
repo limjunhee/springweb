@@ -66,7 +66,7 @@ public class FileService {
         // 3. 만약에 파일이 없으면
         File file = new File(downloadPath); if (!file.exists()) { return; }
         
-        // 4. 파일이 이싿면 파일을 읽어오기 (FileInputStream), 예외처리 할 것
+        // 4. 파일이 있다면 파일을 읽어오기 (FileInputStream), 예외처리 할 것
         try {
             FileInputStream fin = new FileInputStream(downloadPath);    // 파일입력객체 생성
             long fileSize = file.length();                              // 파일명 (바이트) 용량 확인
@@ -79,7 +79,7 @@ public class FileService {
             // .split("기준문자");  ->  문자열 내 특정 기준문자로 분해
             String realFileName = fileName.split("_")[1]; // 언더바 기준으로 쪼개서 2번째 인덱스 값 가져오기
             // HTTP 헤더에 다운로드 형식 지정, 한글이 지원 안된더. URLEncoder.encode
-            response.setHeader("Content-Disposition", "attactment;filename"+URLEncoder.encode(realFileName, "UTF_8"));
+            response.setHeader("Content-Disposition", "attactment;filename"+URLEncoder.encode(realFileName, "UTF-8"));
 
             // 5. 서버로 가져온 파일(바이트들)을 HTTP 응답하기, 현재 다운로드 요청한 서블릿의 출력스트림 가져오기
             ServletOutputStream fout = response.getOutputStream();
