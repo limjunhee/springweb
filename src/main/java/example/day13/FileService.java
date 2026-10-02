@@ -2,10 +2,16 @@
 package example.day13;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.URLEncoder;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class FileService {
@@ -50,7 +56,50 @@ public class FileService {
     }
 
     // [3] 다운로드 함수
+    // c 드라이브 파일 --FileInput--> JAVA --ServletOut--> 브라우저(HTTP)
+    public void fileDownload( String fileName, HttpServletResponse response){
+        // 1. 다운로드할 파일명, HTTP 응답객체를 받는다.
+
+        // 2. 다운로드할 파일명과 업로드 경로 조합
+        String downloadPath = uploadPath + fileName; // 업로드경로 + 파일명;
+        
+        // 3. 만약에 파일이 없으면
+        File file = new File(downloadPath); if (!file.exists()) { return; }
+        
+        // 4. 파일이 이싿면 파일을 읽어오기 (FileInputStream), 예외처리 할 것
+        try {
+            FileInputStream fin = new FileInputStream(downloadPath);    // 파일입력객체 생성
+            long fileSize = file.length();                              // 파일명 (바이트) 용량 확인
+            byte[] bytes = new byte[ (int)fileSize ];                   // 파일 용량만큼 바이트 배열 생성
+            fin.read( bytes );                                          // 파일 입력 객체가 읽어온 바이트들을 바이트 배열에 저장
+            fin.close();                                                // 스트림(이동)간 버퍼 안전하게 제거
+
+            // 6. 다운로드 형식 지정 : 브라우저마다 상이함
+            // 실제 파일명으로 찾기, UUID_짱구.jpg ----> 짱구.jpg
+            // .split("기준문자");  ->  문자열 내 특정 기준문자로 분해
+            String realFileName = fileName.split("_")[1]; // 언더바 기준으로 쪼개서 2번째 인덱스 값 가져오기
+            // HTTP 헤더에 다운로드 형식 지정, 한글이 지원 안된더. URLEncoder.encode
+            response.setHeader("Content-Disposition", "attactment;filename"+URLEncoder.encode(realFileName, "UTF_8"));
+
+            // 5. 서버로 가져온 파일(바이트들)을 HTTP 응답하기, 현재 다운로드 요청한 서블릿의 출력스트림 가져오기
+            ServletOutputStream fout = response.getOutputStream();
+            fout.write( bytes ); // 서블릿출력스트림 객체로 앞전에 읽어온 파일바이트 배열 내보내기
+            fout.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
     // [4] 파일 삭제 함수
+    public boolean fileDelete( String fileName ){
+        // 1. 삭제할 파일명과 경로 조합
+        String deleteFilePath = uploadPath+fileName;
+        // 2. 만약 파일이 존재한다면
+        File file = new File(deleteFilePath);
+        if (file.exists()) {
+            file.delete(); //해당 경로의 파일을 삭제하는 함수
+            return true;
+        }else { return false;}
+    }
 
 } // service end
