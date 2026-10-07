@@ -8,12 +8,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 // 1. 어노테이션
 @Configuration      // 스프링 컨테이너에 [설정 클래스] 빈 등록
-@EnableWebSocket    // STORM 프로토콜 브로커 기능을 사용하는 컴포넌트
+@EnableWebSocketMessageBroker    // STOMP 프로토콜 브로커 기능을 사용하는 컴포넌트
 // [복습]
 // @Controller     // 스프링 컨테이너에 [컨트롤러 클래스] 빈 등록
 // @Service        // 스프링 컨테이너에 [서비스 클래스] 빈 등록
