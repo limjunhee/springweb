@@ -33,25 +33,25 @@ public class RedisController {
     // StringRedisTemplate : 일반 텍스트 문자열 처리 -> 토큰 관리에 최적임
     private final StringRedisTemplate stringRedisTemplate;
 
-    // 1)
-    @GetMapping("/test1")
-    public Map<String, Object> test1() {
-        // [2] 레디스에 자료 삽입 -> .opsForValue().set(key, value); , 문자열타입
-        // key 중복 안됨에 주의(당연히 value는 가능)
-        stringRedisTemplate.opsForValue().set( "유재석", "90" );
-        stringRedisTemplate.opsForValue().set("강호동", "100");
-        stringRedisTemplate.opsForValue().set("신동엽", "80");
+    // // 1)
+    // @GetMapping("/test1")
+    // public Map<String, Object> test1() {
+    //     // [2] 레디스에 자료 삽입 -> .opsForValue().set(key, value); , 문자열타입
+    //     // key 중복 안됨에 주의(당연히 value는 가능)
+    //     stringRedisTemplate.opsForValue().set( "유재석", "90" );
+    //     stringRedisTemplate.opsForValue().set("강호동", "100");
+    //     stringRedisTemplate.opsForValue().set("신동엽", "80");
         
-        // [3] 레디스에 자료 조회, .keys("*"), 모든 키에 해당하는 자료 호출
-        // 참고: 컬렉션프레임워크 ( List, Map, Set )
-        Set<String> keys = stringRedisTemplate.keys("*");
-        Map<String, Object> map = new HashMap<>();
-        for(String key : keys){ // 모든 키를 하나씩 반복하여
-            String data = stringRedisTemplate.opsForValue().get(key); // 키 이용하여 값 호출
-            map.put(key, data);
-        }
-        return map;
-    }
+    //     // [3] 레디스에 자료 조회, .keys("*"), 모든 키에 해당하는 자료 호출
+    //     // 참고: 컬렉션프레임워크 ( List, Map, Set )
+    //     Set<String> keys = stringRedisTemplate.keys("*");
+    //     Map<String, Object> map = new HashMap<>();
+    //     for(String key : keys){ // 모든 키를 하나씩 반복하여
+    //         String data = stringRedisTemplate.opsForValue().get(key); // 키 이용하여 값 호출
+    //         map.put(key, data);
+    //     }
+    //     return map;
+    // }
 
     // =============== redis CRUD ====================
     private final ObjectMapper objectMapper = new ObjectMapper(); // 직렬화 객체
@@ -60,7 +60,7 @@ public class RedisController {
     @PostMapping ("/member")
     public boolean save(@RequestBody MemberDto memberDto) throws JsonProcessingException {
         // 1. 중복 없는 key 구성( 예] 도메인명: 식별키 )
-        String key = "member:"+memberDto.getMno(); // 얘시) member:3
+        String key = "member:"+memberDto.getMno(); // 예시) member:3
 
         // 2. 문자열템플릿에 DTO/자바객체 대입, DTO -> 문자열(직렬화), 문자열 -> DTO (역직렬화) 변환
         // .writeValueAsString( 자바객체 );, 일반 예외 발생
@@ -97,7 +97,7 @@ public class RedisController {
     // [3] redis 개별조회 http://localhost:8080/api/redis/member/find?mno=1
     @GetMapping("/member/find")
     public MemberDto find(@RequestParam(name="mno") Long mno) throws JsonMappingException, JsonProcessingException {
-        // 1. 조회할 mno 매개변수로 받는다.
+        // 1. 조회할 mno 매개변수로 받는다
         // 2. 레디스에서 특정 mno의 키 조회
         String findKey = "member:" + mno;
         String value = stringRedisTemplate.opsForValue().get(findKey);
@@ -137,7 +137,7 @@ public class RedisController {
             stringRedisTemplate.opsForValue().set(updateKey, value);
             return true;
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
 
         return false;

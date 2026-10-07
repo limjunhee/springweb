@@ -37,6 +37,7 @@ public class MemberController {
     }
     
     private final RedisTokenService redisTokenService;
+    
     // [2] 로그인
     @PostMapping("/login")
     public MemberDto login(@RequestBody MemberDto memberDto , HttpServletResponse response) {
@@ -63,7 +64,7 @@ public class MemberController {
                                                 .httpOnly(true).secure(false).sameSite("Lax")
                                                 .build(); // 7일짜리 refreshToken 쿠키 완성
         
-        // 5. 응답 헤더에 쿠키 2개 등록 response.setHeader -> cookie1, cookie2
+        // 5. 응답 헤더에 쿠키 2개 등록 response.addHeader -> cookie1, cookie2
         response.addHeader( HttpHeaders.SET_COOKIE, cookie1.toString() );
         response.addHeader( HttpHeaders.SET_COOKIE, cookie2.toString() );
         

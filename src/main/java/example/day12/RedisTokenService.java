@@ -5,11 +5,10 @@ import java.time.Duration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service 
-@Transactional @RequiredArgsConstructor 
+@RequiredArgsConstructor 
 public class RedisTokenService {
     // [1] 레디스 조작 객체 주입
     private final StringRedisTemplate stringRedisTemplate;
