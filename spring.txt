@@ -243,3 +243,6 @@
     11. @PathVariable: URI 경로 자체에 포함된 식별자 값 추출
     12. @RequestBody: HTTP body(JSON, XML 등, POST/PUT에서 주로 사용) 데이터를 Java 객체로 저장
     
+* 오버라이딩 @Override
+    두 메소드가 상속 관계(부모-자식)일 경우 부모 메소드에 있던 기능을 물려받아 재정의하는 것
+    인터페이스인 경우 추상 메소드를 구현하겠다는 뜻

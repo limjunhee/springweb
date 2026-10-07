@@ -52,6 +52,9 @@ dependencies {
 
 	// 10. Redis
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	// 11. WebSocket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
